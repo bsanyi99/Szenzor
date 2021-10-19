@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,18 +53,18 @@ namespace Client
             Buffer.BlockCopy(byteData, 0, commandType, 0, 4);
             //BitConverter.ToInt32(commandType, 0);
 
-            Data msgReceived = new Data(byteData);
+            Data dataReceived = new Data(byteData);
 
 
-            if (msgReceived.cmdCommand == Command.Message)
+            if (dataReceived.cmdCommand == Command.Message)
             {
 
-                string msg = msgReceived.strName + " Üzeni " + msgReceived.strMessage + "\n";
+                string msg = dataReceived.strName + " Üzeni " + dataReceived.strMessage + "\n";
 
             }
-            else if (msgReceived.cmdCommand == Command.List)
+            else if (dataReceived.cmdCommand == Command.List)
             {
-                string msg = msgReceived.strMessage;
+                string msg = dataReceived.strMessage;
 
             }
 
@@ -71,6 +72,8 @@ namespace Client
 
 
         }
+
+
 
         private void Kitchen_Click(object sender, RoutedEventArgs e)
         {
@@ -91,6 +94,41 @@ namespace Client
         {
 
         }
+
+        private void Heat_Click(object sender, RoutedEventArgs e)
+        {
+            Thread t = new Thread(new ThreadStart(Heating));
+            t.Start();
+            Data dataToSend = new Data();
+            dataToSend.cmdCommand = Command.Heat;
+
+            byte[] data = dataToSend.toByte();
+            clientSocket.Send(data);
+
+        }
+
+        private void Heating()
+        {
+            int temp = 25;
+            for (int i = 0; i < 46; i++)
+            {
+                Console.WriteLine($"{i}.perc utan a viz homerseklete: {temp}°C");
+                Thread.Sleep(1000);
+                temp += 1;
+            }
+            
+        }
+
+        private void Cool_Click(object sender, RoutedEventArgs e)
+        {
+            Data dataToSend = new Data();
+            dataToSend.cmdCommand = Command.Cool;
+
+            byte[] data = dataToSend.toByte(); 
+            clientSocket.Send(data);
+
+        }
+
 
         private void Logout(object sender, RoutedEventArgs e)
         {

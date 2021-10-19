@@ -15,18 +15,23 @@ namespace Server
         List,
         Accept,
         Decline,
-        Null
+        Null,
+        Heat,
+        Cool
     }
 
 
     class Data
     {
+        public Command cmdCommand;
+        public string strName;
+        public string strMessage;
 
         public Data()
         {
             this.cmdCommand = Command.Null;
             this.strName = null;
-            this.strName = null;
+            this.strMessage = null;
 
         }
 
@@ -92,12 +97,6 @@ namespace Server
 
             return result.ToArray();
         }
-
-
-
-        public Command cmdCommand;
-        public string strName;
-        public string strMessage;
 
 
     }

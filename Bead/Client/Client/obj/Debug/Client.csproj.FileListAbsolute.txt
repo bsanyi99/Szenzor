@@ -42,3 +42,25 @@ D:\DE IK\7 félév\Szenzor\Bead\Client\Client\obj\Debug\Client.csproj.CoreCompil
 D:\DE IK\7 félév\Szenzor\Bead\Client\Client\obj\Debug\Client.csproj.CopyComplete
 D:\DE IK\7 félév\Szenzor\Bead\Client\Client\obj\Debug\Window1.g.cs
 D:\DE IK\7 félév\Szenzor\Bead\Client\Client\obj\Debug\Window1.baml
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\bin\Debug\Client.exe.config
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\bin\Debug\Client.exe
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\bin\Debug\Client.pdb
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\bin\Debug\Newtonsoft.Json.dll
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\bin\Debug\Newtonsoft.Json.xml
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client.csprojAssemblyReference.cache
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\login.g.cs
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Registration.g.cs
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Window1.g.cs
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\App.g.cs
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client_MarkupCompile.cache
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client_MarkupCompile.lref
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\login.baml
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Registration.baml
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Window1.baml
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client.g.resources
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client.Properties.Resources.resources
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client.csproj.GenerateResource.cache
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client.csproj.CopyComplete
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client.exe
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client.pdb

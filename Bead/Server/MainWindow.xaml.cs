@@ -203,7 +203,13 @@ namespace Server
 
                             break;
 
-                    }
+                    case Command.Heat:
+                        msgToSend.cmdCommand = msgReceived.cmdCommand;
+                        msgToSend.strMessage = msgReceived.strMessage;
+                        msgToSend.strName = msgReceived.strName;
+
+
+                }
 
 
                 //További üzenetek fogadása a klienstől ha a beérkezett üzenetben szereplő parancs nem Logout command

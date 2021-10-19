@@ -15,12 +15,17 @@ namespace Client
         List,
         Accept,
         Decline,
-        Null
+        Null,
+        Heat,
+        Cool
     }
 
 
     class Data
     {
+        public Command cmdCommand;
+        public string strName;
+        public string strMessage;
 
         public Data()
         {
@@ -92,13 +97,6 @@ namespace Client
 
             return result.ToArray();
         }
-
-
-
-        public Command cmdCommand;
-        public string strName;
-        public string strMessage;
-
 
     }
 }
