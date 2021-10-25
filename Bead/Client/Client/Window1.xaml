@@ -37,13 +37,13 @@
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
             <TextBlock Text="SMART HOME" Foreground="White" Margin="250 0 20 0" FontSize="20" ></TextBlock>
             <Button x:Name="Small" Content="__" Margin="200 4 2 4" Width="15" Padding="0 -3 0 0" Background="Transparent" Foreground="White" FontWeight="Bold" BorderThickness="0"></Button>
-            <Button x:Name="Exit" Content="X" Width="15" Margin="0 4 2 4" Click="Logout" Background="Transparent" Foreground="white" BorderThickness="0"></Button>
+            <Button x:Name="Exit" Content="X" Width="15" Margin="0 4 2 4" Click="Logout" Background="Transparent" Foreground="white" BorderThickness="0" />
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Orientation="Vertical">
-            <TextBlock Text="Beavatkozások" Foreground="White" FontSize="20" Margin="15 25 4 5"></TextBlock>
-            <Button x:Name="Heat" Content="Futes" Background="#FF31BD23" Click ="Heat_Click"  Foreground="White" FontSize="20" Margin="10,15,10,5" HorizontalAlignment="Center"/>
-            <Button x:Name="Cool" Content="Hutes" Background="#FF31BD23" Click ="Cool_Click" Foreground="White" FontSize="20" Margin="10,15,10,5" HorizontalAlignment="Center"/>
+            <TextBox x:Name="kint_ho" Text="10" Background="Black" Foreground="White" HorizontalContentAlignment="Center" TextChanged="kint_ho_TextChanged" FontSize="20" Margin="15 25 20 5"></TextBox>
+            <Button Width="70" Margin="10" FontSize="20" Background="Black" BorderBrush="Orange" BorderThickness="2px" Foreground="White" Click="button1_Click" Name="btnTest">Hő</Button>
+            <TextBlock Text="Beavatkozás 1" Foreground="White" FontSize="20" Margin="15 15 4 5"/>
             <TextBlock Text="Beavatkozás 1" Foreground="White" FontSize="20" Margin="15 15 4 5"/>
             <TextBlock Text="Beavatkozás 1" Foreground="White" FontSize="20" Margin="15 15 4 5"/>
             <TextBlock Text="Beavatkozás 1" Foreground="White" FontSize="20" Margin="15 15 4 5"/>
@@ -54,12 +54,12 @@
 
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="10 10 10 10">
             <StackPanel.Background>
-                <ImageBrush ImageSource="c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\Kepek\haz.jpg" />
+                <ImageBrush ImageSource="D:\DE IK\7 félév\Szenzor\Bead\Client\Client\Kepek\haz.jpg" />
             </StackPanel.Background>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-            <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 5 10 5"></TextBlock>
+            <Label Content="20" Foreground="White" FontSize="25" Margin="0,0,0,96" HorizontalContentAlignment="Center" Width="100" FontWeight="Bold" x:Name="label1"></Label>
             <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 5 10 5"></TextBlock>
             <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 5 10 5"></TextBlock>
             <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 5 10 5"></TextBlock>
