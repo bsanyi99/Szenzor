@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Client
 {
@@ -114,6 +116,112 @@ namespace Client
         private void Fullscreen(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Maximized;
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+
+            Thread t = new Thread(new ThreadStart(Work));
+            t.Start();
+
+
+
+        }
+
+
+
+        private void Work()
+        {
+            int kinti = 1;
+            int label_ertek = 0;
+            int allando = 20;
+            bool isFutes = false;
+
+            this.Dispatcher.Invoke((Action)(() =>
+            {//this refer to form in WPF application 
+                string s = this.kint_ho.Text;
+                string s1 = this.label1.Content.ToString();
+                kinti = int.Parse(s);
+                label_ertek = int.Parse(s1);
+
+
+            }));
+            if (kinti != allando)
+            {
+                if (kinti < allando)
+                {
+                    /**Fűtés**/
+
+                    int i = label_ertek;
+                    while (i >= label_ertek - 4)
+                    {
+                        Updater uiUpdater = new Updater(UpdateUI);
+                        Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater, i);
+                        Thread.Sleep(300);
+                        i--;
+                    }
+
+                    this.Dispatcher.Invoke(delegate ()
+                    {
+                        label1.Background = Brushes.Red;
+                    });
+
+                    for (int j = i; j <= allando; j++)
+                    {
+
+                        Updater uiUpdater = new Updater(UpdateUI);
+                        Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater, j);
+                        Thread.Sleep(300);
+                    }
+                    this.Dispatcher.Invoke(delegate ()
+                    {
+                        label1.Background = Brushes.Transparent;
+                    });
+                }
+                else
+                {
+                    /**Hűtés**/
+                    int i = label_ertek;    /// 20 fok
+                    while (i <= label_ertek + 4)            ///20 <= 24
+                    {
+                        Updater uiUpdater = new Updater(UpdateUI);
+                        Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater, i);
+                        Thread.Sleep(300);
+                        i++;
+                    }
+
+                    this.Dispatcher.Invoke(delegate ()
+                    {
+                        label1.Background = Brushes.Blue;
+                    });
+                    for (int j = i; j >= allando; j--)          /// 24 --> 20 -->  
+                    {
+
+                        Updater uiUpdater = new Updater(UpdateUI);
+                        Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater, j);
+                        Thread.Sleep(300);
+
+                    }
+                    this.Dispatcher.Invoke(delegate ()
+                    {
+                        label1.Background = Brushes.Transparent;
+                    });
+
+
+                }
+            }
+        }
+
+        private delegate void Updater(int UI);
+
+        private void UpdateUI(int i)
+        {
+            label1.Content = i;
+        }
+
+        private void kint_ho_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
