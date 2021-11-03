@@ -27,6 +27,8 @@ namespace Client
         public string userName;
         public string[] users;
         byte[] byteData = new byte[2048];
+        bool isNappal = false;
+        bool isEste = false;
 
         private delegate void UpdateMessageDelegate(string pMessage);
         private delegate void UpdateOnlineUsersDelegate(string pMessage);
@@ -162,6 +164,10 @@ namespace Client
             t.Start();
 
 
+            ////// Ez az lámpa inditó
+            Thread t2 = new Thread(new ThreadStart(Clock));
+            t2.Start();
+
 
         }
 
@@ -260,5 +266,129 @@ namespace Client
         {
 
         }
+
+
+
+        /***********************ÓRA***************************/
+        private void Clock()
+        {
+            int alap_ora1 = 0;
+
+            this.Dispatcher.Invoke((Action)(() =>
+            {//this refer to form in WPF application 
+
+                string alapora = this.Ora.Content.ToString();
+                alap_ora1 = int.Parse(alapora);
+
+
+            }));
+            int i = alap_ora1;
+            while (true)
+            {
+
+                Updater3 uiUpdater3 = new Updater3(ClockUpdait);
+                Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater3, i);
+                Thread.Sleep(2000);
+                i++;
+                if (i == 25)
+                {
+                    i = 0;
+                }
+
+                if (i >= 7 && i <= 17)
+                {
+                    isNappal = true;
+                    this.Dispatcher.Invoke((Action)(() =>
+                    {
+                        this.LampLights.Text = "Lights off";
+                    }));
+                }
+                else
+                {
+                    isNappal = false;
+                }
+
+                if (i >= 18 && i <= 23)
+                {
+                    isEste = true;
+                    this.Dispatcher.Invoke((Action)(() =>
+                    {
+                        this.LampLights.Text = "Lights on";
+                    }));
+
+                }
+                else
+                {
+                    this.Dispatcher.Invoke((Action)(() =>
+                    {
+                        this.LampLights.Text = "Lights off";
+                    }));
+                    isEste = false;
+
+                }
+            }
+        }
+
+
+
+        private delegate void Updater3(int UI);
+
+        private void ClockUpdait(int i)
+        {
+            Ora.Content = i;
+        }
+
+
+
+        void TextBlock_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+
+            if (isNappal == false && isEste == false)
+            {
+                this.LampLights.Text = "Lights on";
+
+                Thread t = new Thread(new ThreadStart(LampaValtas));
+                t.Start();
+            }
+
+        }
+
+        void LampaValtas()
+        {
+            Thread.Sleep(1000);
+            Updater2 uiUpdater = new Updater2(UpdateUI2);
+            Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater, "Lights off");
+
+
+
+        }
+
+        delegate void Updater2(string UI);
+
+        void UpdateUI2(string i)
+        {
+            this.LampLights.Text = i;
+
+        }
+
+
+
+
+        /***********************************************ÓRA*********************************************/
+
+
+
+
+
+        void TextBlock_IsMouseDirectlyOverChanged2(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+
+ 
+
+        }
+
+
     }
 }

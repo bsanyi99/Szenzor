@@ -43,7 +43,10 @@
         <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Orientation="Vertical">
             <TextBox x:Name="kint_ho" Text="10" Background="Black" Foreground="White" HorizontalContentAlignment="Center" TextChanged="kint_ho_TextChanged" FontSize="20" Margin="15 25 20 5"></TextBox>
             <Button Width="70" Margin="10" FontSize="20" Background="Black" BorderBrush="Orange" BorderThickness="2px" Foreground="White" Click="button1_Click" Name="btnTest">Hő</Button>
-            <TextBlock Text="Beavatkozás 1" Foreground="White" FontSize="20" Margin="15 15 4 5"/>
+            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <TextBlock Text="Óra: " Foreground="White" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Label  x:Name="Ora"   Content="12" FontSize="20"  Background="Transparent" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+            </StackPanel>
             <TextBlock Text="Beavatkozás 1" Foreground="White" FontSize="20" Margin="15 15 4 5"/>
             <TextBlock Text="Beavatkozás 1" Foreground="White" FontSize="20" Margin="15 15 4 5"/>
             <TextBlock Text="Beavatkozás 1" Foreground="White" FontSize="20" Margin="15 15 4 5"/>
@@ -56,6 +59,7 @@
             <StackPanel.Background>
                 <ImageBrush ImageSource="D:\DE IK\7 félév\Szenzor\Bead\Client\Client\Kepek\haz.jpg" />
             </StackPanel.Background>
+            <TextBlock Background="Transparent" Width="50" Height="70" Margin="10,120,-470,10" IsMouseDirectlyOverChanged="TextBlock_IsMouseDirectlyOverChanged" />
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
@@ -66,8 +70,8 @@
             <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 5 10 5"></TextBlock>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-            <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 50 10 5"></TextBlock>
-            <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 50 10 5"></TextBlock>
+
+            <TextBlock Margin="10,50,10,5" Text="Lights off" x:Name="LampLights" FontWeight="Bold" FontSize="20" Foreground="White" IsMouseDirectlyOverChanged="TextBlock_IsMouseDirectlyOverChanged2"></TextBlock>
             <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 50 10 5"></TextBlock>
             <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 50 10 5"></TextBlock>
             <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 50 10 5"></TextBlock>
