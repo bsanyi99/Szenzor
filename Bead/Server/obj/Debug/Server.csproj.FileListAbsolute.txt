@@ -1,0 +1,45 @@
+D:\DE IK\6 félév\Távközlő\Bead\Server\bin\Debug\Server.exe.config
+D:\DE IK\6 félév\Távközlő\Bead\Server\bin\Debug\Server.exe
+D:\DE IK\6 félév\Távközlő\Bead\Server\bin\Debug\Server.pdb
+D:\DE IK\6 félév\Távközlő\Bead\Server\obj\Debug\Server.csprojAssemblyReference.cache
+D:\DE IK\6 félév\Távközlő\Bead\Server\obj\Debug\MainWindow.g.cs
+D:\DE IK\6 félév\Távközlő\Bead\Server\obj\Debug\App.g.cs
+D:\DE IK\6 félév\Távközlő\Bead\Server\obj\Debug\Server_MarkupCompile.cache
+D:\DE IK\6 félév\Távközlő\Bead\Server\obj\Debug\Server_MarkupCompile.lref
+D:\DE IK\6 félév\Távközlő\Bead\Server\obj\Debug\MainWindow.baml
+D:\DE IK\6 félév\Távközlő\Bead\Server\obj\Debug\Server.g.resources
+D:\DE IK\6 félév\Távközlő\Bead\Server\obj\Debug\Server.Properties.Resources.resources
+D:\DE IK\6 félév\Távközlő\Bead\Server\obj\Debug\Server.csproj.GenerateResource.cache
+D:\DE IK\6 félév\Távközlő\Bead\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+D:\DE IK\6 félév\Távközlő\Bead\Server\obj\Debug\Server.exe
+D:\DE IK\6 félév\Távközlő\Bead\Server\obj\Debug\Server.pdb
+D:\DE IK\7 félév\Szenzor\Bead\Server\bin\Debug\Server.exe.config
+D:\DE IK\7 félév\Szenzor\Bead\Server\bin\Debug\Server.exe
+D:\DE IK\7 félév\Szenzor\Bead\Server\bin\Debug\Server.pdb
+D:\DE IK\7 félév\Szenzor\Bead\Server\obj\Debug\Server.csprojAssemblyReference.cache
+D:\DE IK\7 félév\Szenzor\Bead\Server\obj\Debug\MainWindow.g.cs
+D:\DE IK\7 félév\Szenzor\Bead\Server\obj\Debug\App.g.cs
+D:\DE IK\7 félév\Szenzor\Bead\Server\obj\Debug\Server_MarkupCompile.cache
+D:\DE IK\7 félév\Szenzor\Bead\Server\obj\Debug\Server_MarkupCompile.lref
+D:\DE IK\7 félév\Szenzor\Bead\Server\obj\Debug\MainWindow.baml
+D:\DE IK\7 félév\Szenzor\Bead\Server\obj\Debug\Server.g.resources
+D:\DE IK\7 félév\Szenzor\Bead\Server\obj\Debug\Server.Properties.Resources.resources
+D:\DE IK\7 félév\Szenzor\Bead\Server\obj\Debug\Server.csproj.GenerateResource.cache
+D:\DE IK\7 félév\Szenzor\Bead\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+D:\DE IK\7 félév\Szenzor\Bead\Server\obj\Debug\Server.exe
+D:\DE IK\7 félév\Szenzor\Bead\Server\obj\Debug\Server.pdb
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\bin\Debug\Server.exe.config
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\bin\Debug\Server.exe
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\bin\Debug\Server.pdb
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\Server.csprojAssemblyReference.cache
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\MainWindow.g.cs
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\App.g.cs
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\Server_MarkupCompile.cache
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\Server_MarkupCompile.lref
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\MainWindow.baml
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\Server.g.resources
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\Server.Properties.Resources.resources
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\Server.csproj.GenerateResource.cache
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\Server.exe
+C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\Server.pdb
