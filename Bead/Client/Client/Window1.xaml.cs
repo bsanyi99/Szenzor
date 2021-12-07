@@ -153,7 +153,7 @@ namespace Client
 
         bool isParasito = false;
         private bool isForralas = false;
-        DateTime act_dateTime;
+        double eredeti = 0;
 
         private void Parasito_Click(object sender, RoutedEventArgs e)
         {
@@ -163,7 +163,6 @@ namespace Client
                 isParasito = true;
             }
         }
-
 
 
         private void Work()
@@ -323,7 +322,7 @@ namespace Client
                                 Updater4 uiUpdater4 = new Updater4(MinUpdate);
                                 Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater4, startDate.Minute);
 
-                                Thread.Sleep(500);
+                                Thread.Sleep(200);
                                 if (startDate == sunDatas[i].SunRise_Time1)
                                 {
                                     this.Dispatcher.Invoke((Action)(() =>
@@ -341,7 +340,7 @@ namespace Client
                                         }));
                                     }
                                 }
-                                
+
                                 if (isParasito == true)
                                 {
                                     this.Dispatcher.Invoke((Action)(() =>
@@ -352,7 +351,7 @@ namespace Client
                                         {
                                             isParasito = false;
                                         }
-                                        
+
                                         this.Paratartalom.Content = alap;
                                     }));
                                 }
@@ -361,7 +360,7 @@ namespace Client
                                     this.Dispatcher.Invoke((Action)(() =>
                                     {
                                         double alap = Convert.ToDouble(this.Paratartalom.Content);
-                                        if (act_dateTime == startDate)
+                                        if (eredeti + 6 <= alap)
                                         {
                                             isForralas = false;
                                         }
@@ -373,6 +372,19 @@ namespace Client
                                     }));
 
                                 }
+
+                                this.Dispatcher.Invoke((Action)(() =>
+                                {
+                                    double para = Convert.ToDouble(this.Paratartalom.Content);
+                                    if (para > 45 && isForralas == false)
+                                    {
+                                        this.szellozoAllapot.Content = "ON";
+                                        para -= 0.5;
+                                        this.Paratartalom.Content = para;
+
+                                    }
+                                }));
+
 
                             }
                             //startDate.AddHours(Convert.ToDouble(ora));                       
@@ -531,7 +543,7 @@ namespace Client
         private void Forralas_Click(object sender, RoutedEventArgs e)
         {
             isForralas = true;
-            act_dateTime = act_dateTime.AddMinutes(3);
+            eredeti = Convert.ToDouble(this.Paratartalom.Content);
 
         }
     }

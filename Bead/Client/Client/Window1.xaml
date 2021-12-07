@@ -87,7 +87,7 @@
 
             <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Orientation="Horizontal" >
                 <Label Content="Szellőző:" Foreground="White" FontSize="25" Margin="10,0,0,96" HorizontalContentAlignment="Center" FontWeight="Bold" x:Name="Szellozo"/>
-                <Label Content="OFF"  Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,0,0,96" FontWeight="Bold"/>
+                <Label x:Name="szellozoAllapot" Content="OFF"  Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,0,0,96" FontWeight="Bold"/>
             </StackPanel>
             <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 5 10 5"></TextBlock>
             <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 5 10 5"></TextBlock>
