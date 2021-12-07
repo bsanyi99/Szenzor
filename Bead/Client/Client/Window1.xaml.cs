@@ -101,8 +101,6 @@ namespace Client
 
         private void Heat_Click(object sender, RoutedEventArgs e)
         {
-            Thread t = new Thread(new ThreadStart(Heating));
-            t.Start();
             Data dataToSend = new Data();
             dataToSend.cmdCommand = Command.Heat;
 
@@ -111,17 +109,6 @@ namespace Client
 
         }
 
-        private void Heating()
-        {
-            int temp = 25;
-            for (int i = 0; i < 46; i++)
-            {
-                Console.WriteLine($"{i}.perc utan a viz homerseklete: {temp}°C");
-                Thread.Sleep(1000);
-                temp += 1;
-            }
-
-        }
 
         private void Cool_Click(object sender, RoutedEventArgs e)
         {
@@ -136,14 +123,6 @@ namespace Client
 
         private void Logout(object sender, RoutedEventArgs e)
         {
-            Data msgToSend = new Data();
-            msgToSend.cmdCommand = Command.Logout;
-            msgToSend.strName = userName;
-
-            byte[] message = new byte[2200000];
-            message = msgToSend.toByte();
-            clientSocket.Send(message);
-            Close();
         }
 
 
@@ -170,6 +149,19 @@ namespace Client
             t2.Start();
 
 
+        }
+
+        bool isParasito = false;
+        private bool isForralas = false;
+        DateTime act_dateTime;
+
+        private void Parasito_Click(object sender, RoutedEventArgs e)
+        {
+            double para = Convert.ToDouble(this.Paratartalom.Content.ToString());
+            if (para < 45)
+            {
+                isParasito = true;
+            }
         }
 
 
@@ -269,7 +261,6 @@ namespace Client
         }
 
 
-
         /***********************ÓRA***************************/
         class SunData
         {
@@ -308,13 +299,13 @@ namespace Client
             }
 
             int[] napok = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-            DateTime startDate = new DateTime(2020, 1, 1, 15, 0, 0);
+            DateTime startDate = new DateTime(2020, 1, 1, 0, 0, 0);
             this.Dispatcher.Invoke((Action)(() =>
-            {//this refer to form in WPF application 
+            {
 
             }));
-
-            for (int i = 0; i < sunDatas.Count; i++)
+            int i = 0;
+            while (i < sunDatas.Count())
             {
                 for (int ho = 1; ho < 13; ho++)
                 {
@@ -332,7 +323,7 @@ namespace Client
                                 Updater4 uiUpdater4 = new Updater4(MinUpdate);
                                 Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater4, startDate.Minute);
 
-                                Thread.Sleep(300);
+                                Thread.Sleep(500);
                                 if (startDate == sunDatas[i].SunRise_Time1)
                                 {
                                     this.Dispatcher.Invoke((Action)(() =>
@@ -350,9 +341,43 @@ namespace Client
                                         }));
                                     }
                                 }
+                                
+                                if (isParasito == true)
+                                {
+                                    this.Dispatcher.Invoke((Action)(() =>
+                                    {
+                                        double alap = Convert.ToDouble(this.Paratartalom.Content);
+                                        alap += 0.5;
+                                        if (alap >= 45)
+                                        {
+                                            isParasito = false;
+                                        }
+                                        
+                                        this.Paratartalom.Content = alap;
+                                    }));
+                                }
+                                if (isForralas == true)
+                                {
+                                    this.Dispatcher.Invoke((Action)(() =>
+                                    {
+                                        double alap = Convert.ToDouble(this.Paratartalom.Content);
+                                        if (act_dateTime == startDate)
+                                        {
+                                            isForralas = false;
+                                        }
+                                        else
+                                        {
+                                            alap += 2;
+                                            this.Paratartalom.Content = alap;
+                                        }
+                                    }));
+
+                                }
+
                             }
-                            //startDate.AddHours(Convert.ToDouble(ora));
+                            //startDate.AddHours(Convert.ToDouble(ora));                       
                         }
+                        i++;
                         //startDate.AddDays(Convert.ToDouble(nap));
                     }
                 }
@@ -447,6 +472,13 @@ namespace Client
             datum.Text = s;
         }
 
+        private delegate void Updater6(string UI);
+
+        private void HumidityUpdate(string s)
+        {
+            Paratartalom.Content = s + "%";
+        }
+
 
         void TextBlock_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -496,7 +528,11 @@ namespace Client
 
 
         }
+        private void Forralas_Click(object sender, RoutedEventArgs e)
+        {
+            isForralas = true;
+            act_dateTime = act_dateTime.AddMinutes(3);
 
-
+        }
     }
 }

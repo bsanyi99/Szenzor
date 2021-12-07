@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800" AllowsTransparency="True" ResizeMode="CanResizeWithGrip" 
+        Title="Window1" Height="450" Width="886" AllowsTransparency="True" ResizeMode="CanResizeWithGrip" 
         WindowStyle="None" MouseDown="Window_MouseDown" Cursor="Arrow" WindowState="Normal" >
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="113*" />
-            <ColumnDefinition Width="287*"/>
+            <ColumnDefinition Width="201*" />
+            <ColumnDefinition Width="599*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions >
@@ -30,17 +30,17 @@
             </Border.Background>
         </Border>
 
-        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,0.6,0">
+        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,12.8,0">
             <TextBlock Text="Beavatkozások" Foreground="White" FontSize="20" Margin="15 0 2 0"></TextBlock>
         </StackPanel>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Grid.ColumnSpan="2" Margin="167,0,0,0">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="4.2,0,0,0" Grid.Column="1">
             <TextBlock Text="SMART HOME" Foreground="White" Margin="250 0 20 0" FontSize="20" ></TextBlock>
             <Button x:Name="Small" Content="__" Margin="200 4 2 4" Width="15" Padding="0 -3 0 0" Background="Transparent" Foreground="White" FontWeight="Bold" BorderThickness="0"></Button>
             <Button x:Name="Exit" Content="X" Width="15" Margin="0 4 2 4" Click="Logout" Background="Transparent" Foreground="white" BorderThickness="0" />
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Orientation="Vertical" Margin="15,15,4,5">
+        <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Orientation="Vertical" Margin="15,15,9.8,4.6">
             <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBox Text="Kinti hőmérséklet: " Foreground="White" Background="Transparent" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0,4,5"></TextBox>
                 <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -50,51 +50,58 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" >
-                <TextBox x:Name="datum" HorizontalAlignment="Center" Foreground="White" Background="Black" FontSize="25" Text="2020.1.1" Margin="0,15,4,5" VerticalAlignment="Center"></TextBox>
+                <TextBox x:Name="datum" HorizontalAlignment="Center" Foreground="White" Background="Black" FontSize="25" Text="2020.01.01" Margin="0,15,4,5" VerticalAlignment="Center" BorderThickness="0"></TextBox>
                 <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Label x:Name="ora" Content="" Foreground="White" Background="Black" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label x:Name="ora" Content="0" Foreground="White" Background="Black" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                     <TextBox Text=":" Foreground="White" Background="Black" FontSize="25" BorderThickness="0" VerticalAlignment="Center"></TextBox>
-                    <Label x:Name="perc" Content="" Foreground="White" Background="Black" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label x:Name="perc" Content="00" Foreground="White" Background="Black" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                 </StackPanel>
                 <!--<TextBlock Text="Óra: " Foreground="White" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,15,0,0"/>-->
                 <!--<Label  x:Name="Ora"   Content="12" FontSize="20"  Background="Transparent" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,15,0,0"></Label>-->
             </StackPanel>
-            <Button Width="70" Margin="15,15,4,5" FontSize="20" Background="Black" BorderBrush="Orange" BorderThickness="2px" Foreground="White" Click="button1_Click" Name="btnTest" HorizontalAlignment="Center" VerticalAlignment="Center">Hő</Button>
-            <TextBlock Text="Beavatkozás 1" Foreground="White" FontSize="20" Margin="15 15 4 5"/>
-            <TextBlock Text="Beavatkozás 1" Foreground="White" FontSize="20" Margin="15 15 4 5"/>
+            <Button Width="70" Margin="15,15,4,5" FontSize="20" Background="Black" BorderBrush="Orange" BorderThickness="2px" Foreground="White" Click="button1_Click" Name="btnTest" HorizontalAlignment="Center" VerticalAlignment="Center">Start</Button>
+            <Button Width="96" Margin="15,15,4,5" FontSize="20" Background="Black" BorderBrush="Orange" BorderThickness="2px" Foreground="White" Click="Parasito_Click" Name="Parasito" HorizontalAlignment="Center">Párásító</Button>
+            <Button Width="119" Margin="15,15,4,5" FontSize="20" Background="Black" BorderBrush="Orange" BorderThickness="2px" Foreground="White" Click="Forralas_Click" Name="Forralas" HorizontalAlignment="Center">Vízforralás</Button>
             <TextBlock Text="Beavatkozás 1" Foreground="White" FontSize="20" Margin="15 15 4 5"/>
             <TextBlock Text="Beavatkozás 1" Foreground="White" FontSize="20" Margin="15 15 4 5"/>
             <TextBlock Text="Beavatkozás 1" Foreground="White" FontSize="20" Margin="15 15 4 5"/>
         </StackPanel>
 
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="15.4,10,10,9.8">
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="9.2,10,10,9.8">
             <StackPanel.Background>
-                <ImageBrush ImageSource="c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\Kepek\haz.jpg" />
+                <ImageBrush ImageSource="c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\Kepek\haz.jpg" x:Name="kitchen"/>
             </StackPanel.Background>
             <TextBlock Background="Transparent" Width="50" Height="70" Margin="10,120,-470,10" IsMouseDirectlyOverChanged="TextBlock_IsMouseDirectlyOverChanged" />
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Grid.ColumnSpan="2" Margin="167,0.2,0,-0.4">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="4.2,0.2,0,-0.4" Grid.Column="1">
             <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Orientation="Horizontal" >
                 <Label Content="20" Foreground="White" FontSize="25" Margin="10,0,0,96" HorizontalContentAlignment="Center" FontWeight="Bold" x:Name="label1"/>
                 <Label Content="°C"  Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,0,0,96" FontWeight="Bold"/>
             </StackPanel>
-            <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 5 10 5"></TextBlock>
-            <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 5 10 5"></TextBlock>
+            <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Orientation="Horizontal" >
+                <Label Content="20" Foreground="White" FontSize="25" Margin="10,0,0,96" HorizontalContentAlignment="Center" FontWeight="Bold" x:Name="Paratartalom"/>
+                <Label Content="%"  Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,0,0,96" FontWeight="Bold"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Orientation="Horizontal" >
+                <Label Content="Szellőző:" Foreground="White" FontSize="25" Margin="10,0,0,96" HorizontalContentAlignment="Center" FontWeight="Bold" x:Name="Szellozo"/>
+                <Label Content="OFF"  Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,0,0,96" FontWeight="Bold"/>
+            </StackPanel>
             <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 5 10 5"></TextBlock>
             <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 5 10 5"></TextBlock>
         </StackPanel>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Grid.ColumnSpan="2" Margin="167,0.2,0,-0.4">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="4.2,0.2,0,-0.4" Grid.Column="1">
 
-            <TextBlock Margin="10,50,10,5" Text="Lights off" x:Name="LampLights" FontWeight="Bold" FontSize="20" Foreground="White" IsMouseDirectlyOverChanged="TextBlock_IsMouseDirectlyOverChanged2"></TextBlock>
-            <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 50 10 5"></TextBlock>
+            <TextBlock Margin="10,50,10,5" Text="Lights on" x:Name="LampLights" FontWeight="Bold" FontSize="20" Foreground="White" IsMouseDirectlyOverChanged="TextBlock_IsMouseDirectlyOverChanged2"></TextBlock>
+            <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10,50,10,53.8"></TextBlock>
             <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 50 10 5"></TextBlock>
             <TextBlock Text="Eredmények" Foreground="White" FontSize="20" Margin="10 50 10 5"></TextBlock>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Grid.ColumnSpan="2" Margin="167,0.2,0,-0.4">
-            <Button Content="Konyha" Name="Kitchen" Click="Kitchen_Click" Width="100" Margin="150,90,0,0" Background="Transparent" BorderThickness="0" FontSize="30" Foreground="White" Height="50" VerticalAlignment="Top"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="4.2,0.2,0,-0.4" Grid.Column="1">
+            <Button Content="Konyha" Name="Kitchen" Click="Kitchen_Click" Width="128" Margin="100,90,0,0" Background="Transparent" BorderThickness="0" FontSize="30" Foreground="White" Height="50" VerticalAlignment="Top"/>
             <Button Content="Fürdő" Name="BathRoom" Click="Bath_Click" Width="100" Height="50" Margin="20 90 0 0 " Background="Transparent" BorderThickness="0" FontSize="30" Foreground="White"></Button>
             <Button Content="Nappali" Name="LivingRoom" Click="Living_Click" Width="120" Height="50" Margin="20 90 0 0 " Background="Transparent" BorderThickness="0" FontSize="30" Foreground="White"></Button>
             <Button Content="Háló" Name="BadRoom" Click="BadRoom_Click" Width="100" Height="50" Margin="20 90 0 0 " Background="Transparent" BorderThickness="0" FontSize="30" Foreground="White"></Button>

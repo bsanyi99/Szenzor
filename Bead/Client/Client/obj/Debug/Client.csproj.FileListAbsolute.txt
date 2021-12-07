@@ -107,3 +107,5 @@ c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Cli
 c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client.csproj.CopyComplete
 c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client.exe
 c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client.pdb
+C:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client.csproj.AssemblyReference.cache
+C:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\obj\Debug\Client.csproj.SuggestedBindingRedirects.cache
