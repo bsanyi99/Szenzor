@@ -43,3 +43,11 @@ C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server
 C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
 C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\Server.exe
 C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Server\obj\Debug\Server.pdb
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Server\obj\Debug\Server.csproj.AssemblyReference.cache
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Server\obj\Debug\Server.csproj.SuggestedBindingRedirects.cache
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Server\obj\Debug\MainWindow.g.cs
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Server\obj\Debug\App.g.cs
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Server\obj\Debug\Server_MarkupCompile.cache
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Server\obj\Debug\Server_MarkupCompile.lref
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Server\obj\Debug\Server.exe
+c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Server\obj\Debug\Server.pdb
