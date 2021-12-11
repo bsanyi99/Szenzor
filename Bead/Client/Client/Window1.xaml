@@ -70,7 +70,7 @@
 
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="9.2,10,10,9.8">
             <StackPanel.Background>
-                <ImageBrush ImageSource="c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\Kepek\haz.jpg" x:Name="kitchen"/>
+                <ImageBrush ImageSource="C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Client\Kepek\haz.jpg" x:Name="kitchen"/>
             </StackPanel.Background>
             <TextBlock Background="Transparent" Width="50" Height="70" Margin="10,120,-470,10" IsMouseDirectlyOverChanged="TextBlock_IsMouseDirectlyOverChanged" />
         </StackPanel>

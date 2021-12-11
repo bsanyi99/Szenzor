@@ -282,7 +282,7 @@ namespace Client
 
         private void DateClock()
         {
-            var path = @"C:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\2020data.csv";
+            var path = @"C:\Users\user\OneDrive\Dokumentumok\GitHub\Szenzor-Gabi\Szenzor-Gabi\Bead\Client\2020data.csv";
             var lines = File.ReadAllLines(path);
             List<SunData> sunDatas = new List<SunData>();
             foreach (var line in lines)
@@ -342,37 +342,7 @@ namespace Client
                                     }
                                 }
                                 
-                                if (isParasito == true)
-                                {
-                                    this.Dispatcher.Invoke((Action)(() =>
-                                    {
-                                        double alap = Convert.ToDouble(this.Paratartalom.Content);
-                                        alap += 0.5;
-                                        if (alap >= 45)
-                                        {
-                                            isParasito = false;
-                                        }
-                                        
-                                        this.Paratartalom.Content = alap;
-                                    }));
-                                }
-                                if (isForralas == true)
-                                {
-                                    this.Dispatcher.Invoke((Action)(() =>
-                                    {
-                                        double alap = Convert.ToDouble(this.Paratartalom.Content);
-                                        if (act_dateTime == startDate)
-                                        {
-                                            isForralas = false;
-                                        }
-                                        else
-                                        {
-                                            alap += 2;
-                                            this.Paratartalom.Content = alap;
-                                        }
-                                    }));
 
-                                }
 
                             }
                             //startDate.AddHours(Convert.ToDouble(ora));                       
@@ -528,6 +498,13 @@ namespace Client
 
 
         }
+
+
+
+
+
+
+
         private void Forralas_Click(object sender, RoutedEventArgs e)
         {
             isForralas = true;
@@ -536,3 +513,44 @@ namespace Client
         }
     }
 }
+
+
+
+
+/**
+ 
+ 
+                                 if (isParasito == true)
+                                {
+                                    this.Dispatcher.Invoke((Action)(() =>
+                                    {
+                                        double alap = Convert.ToDouble(this.Paratartalom.Content);
+                                        alap += 0.5;
+                                        if (alap >= 45)
+                                        {
+                                            isParasito = false;
+                                        }
+                                        
+                                        this.Paratartalom.Content = alap;
+                                    }));
+                                }
+                                if (isForralas == true)
+                                {
+                                    this.Dispatcher.Invoke((Action)(() =>
+                                    {
+                                        double alap = Convert.ToDouble(this.Paratartalom.Content);
+                                        if (act_dateTime == startDate)
+                                        {
+                                            isForralas = false;
+                                        }
+                                        else
+                                        {
+                                            alap += 2;
+                                            this.Paratartalom.Content = alap;
+                                        }
+                                    }));
+
+                                }
+ 
+ 
+ */

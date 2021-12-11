@@ -35,6 +35,8 @@ namespace Server
 
         }
 
+
+
         public Data(byte[] data)
         {
             this.cmdCommand = (Command)BitConverter.ToInt32(data, 0);
