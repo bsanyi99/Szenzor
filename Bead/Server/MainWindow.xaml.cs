@@ -34,7 +34,7 @@ namespace Server
         public static int byteDataSize = 2200000;
         byte[] byteData = new byte[byteDataSize];
 
-
+     
         public MainWindow()
         {
             clientList = new List<ClientInfo>();
@@ -50,10 +50,6 @@ namespace Server
         private void UpdateMessage(string pMessage)
         {
             this.systemLog.Text += pMessage;
-            this.systemLog.ScrollToEnd();
-
-            systemLog.SelectionStart = systemLog.Text.Length;
-            systemLog.ScrollToEnd();
         }
 
 
@@ -77,6 +73,16 @@ namespace Server
 
                 //Beérkező kliens kérelmek fogadása
                 serverSocket.BeginAccept(new AsyncCallback(OnAccept), null);
+
+
+                //Időzités állítása, hogy másodpercenként küldje az összes online felhasználónak az elérhető felhasználói istáját egy másik szálon
+                new Thread(() =>
+                {
+                    var aTimer = new System.Timers.Timer(1000);
+                    aTimer.Elapsed += new ElapsedEventHandler(checkCondition);
+                    aTimer.Start();
+
+                }).Start();
 
 
             }
@@ -122,81 +128,85 @@ namespace Server
                 byte[] commandType = new byte[4];
                 Buffer.BlockCopy(byteData, 0, commandType, 0, 4);
 
-                Data msgReceived = new Data(byteData);
-                Data msgToSend = new Data();
-                byte[] message = new byte[byteDataSize];
+                    Data msgReceived = new Data(byteData);
+                    Data msgToSend = new Data();
+                    byte[] message = new byte[byteDataSize];
 
-                switch (msgReceived.cmdCommand)
-                {
+                    switch (msgReceived.cmdCommand)
+                    {
 
-                    //Login command
-                    case Command.Login:
+                        //Login command
+                        case Command.Login:
 
-                        ClientInfo client = new ClientInfo(clientSocket, msgReceived.strName);
-                        clientList.Add(client);
-
-
-                        msgToSend.cmdCommand = Command.Accept;
-                        msgToSend.strMessage = "Sikeres kapcsolódás!";
-                        message = msgToSend.toByte();
-
-                        clientSocket.BeginSend(message, 0, message.Length, SocketFlags.None,
-                                    new AsyncCallback(OnSend), clientSocket);
+                            ClientInfo client = new ClientInfo(clientSocket, msgReceived.strName);
+                            clientList.Add(client);
 
 
-                        UpdateDelegate updateLogin = new UpdateDelegate(UpdateMessage);
-                        this.systemLog.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, updateLogin,
-                           "Smart home activated" + "\n");
+                            msgToSend.cmdCommand = Command.Accept;
+                            msgToSend.strMessage = "Sikeres kapcsolódás!";
+                            message = msgToSend.toByte();
 
-                        break;
+                            clientSocket.BeginSend(message, 0, message.Length, SocketFlags.None,
+                                        new AsyncCallback(OnSend), clientSocket);
 
-                    //Logout command
-                    case Command.Logout:
-                        int clientIndex = 0;
+                        
+                            UpdateDelegate updateLogin = new UpdateDelegate(UpdateMessage);
+                            this.systemLog.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, updateLogin,
+                                "<<< " + msgReceived.strName + " has joined to the chat room >>>" + "\n\r");
 
-                        foreach (ClientInfo Client in clientList)
-                        {
-                            if (Client.clientSocket == clientSocket)
+                            break;
+
+                        //Logout command
+                        case Command.Logout:
+                            int clientIndex = 0;
+
+                            foreach (ClientInfo Client in clientList)
                             {
+                                if (Client.clientSocket == clientSocket)
+                                {
 
-                                clientList.RemoveAt(clientIndex);
-                                break;
+                                    clientList.RemoveAt(clientIndex);
+                                    break;
 
+                                }
+                                ++clientIndex;
                             }
-                            ++clientIndex;
-                        }
 
-                        clientSocket.Close();
+                            clientSocket.Close();
 
-                        UpdateDelegate updateLogout = new UpdateDelegate(UpdateMessage);
-                        this.systemLog.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, updateLogout,
-                            "Smart home deactivated! \n");
+                            UpdateDelegate updateLogout = new UpdateDelegate(UpdateMessage);
+                            this.systemLog.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, updateLogout,
+                                "<<< " + msgReceived.strName + "has leaved the chat room >>>\n\r");
 
-                        break;
+                            break;
 
 
-                    //Public Message
-                    case Command.Message:
+                        //Public Message
+                        case Command.Message:
+                            msgToSend.cmdCommand = msgReceived.cmdCommand;
+                            msgToSend.strMessage = msgReceived.strMessage;
+                            msgToSend.strName = msgReceived.strName;
+
+                            message = msgToSend.toByte();
+
+
+                            foreach (ClientInfo Client in clientList)
+                            {
+                                if (Client.clientSocket != clientSocket)
+                                    Client.clientSocket.Send(message, 0, message.Length, SocketFlags.None);
+                            }
+
+
+                            UpdateDelegate updatePubMsg = new UpdateDelegate(UpdateMessage);
+                            this.systemLog.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, updatePubMsg,
+                            "<<< " + msgReceived.strName + " send a public message in the chat room >> \n\r");
+
+                            break;
+
+                    case Command.Heat:
                         msgToSend.cmdCommand = msgReceived.cmdCommand;
                         msgToSend.strMessage = msgReceived.strMessage;
                         msgToSend.strName = msgReceived.strName;
-
-                        message = msgToSend.toByte();
-
-
-                        foreach (ClientInfo Client in clientList)
-                        {
-                            if (Client.clientSocket != clientSocket)
-                                Client.clientSocket.Send(message, 0, message.Length, SocketFlags.None);
-                        }
-
-
-                        UpdateDelegate updatePubMsg = new UpdateDelegate(UpdateMessage);
-                        this.systemLog.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, updatePubMsg,
-                       msgReceived.strMessage + "\n");
-
-                        break;
-
 
 
                 }
@@ -229,7 +239,54 @@ namespace Server
             }
         }
 
+        //Az elérhető kliensek listájának küldését végző metódus
+        private void sendClientList()
+        {
 
+            Data msgToSend = new Data();
+            byte[] message = new byte[byteDataSize];
+
+            if (clientList.Count > 1)
+            {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < clientList.Count; i++)
+                {
+                    sb.Append(clientList[i].clientName);
+                    sb.Append(",");
+                }
+
+                msgToSend.strMessage = sb.ToString();
+
+            }
+            else
+            {
+                msgToSend.strMessage = "Nincs elerheto felhasznalo!";
+
+            }
+
+            msgToSend.cmdCommand = Command.List;
+            message = msgToSend.toByte();
+
+            foreach (ClientInfo client in clientList)
+            {
+                client.clientSocket.Send(message, 0, message.Length, SocketFlags.None);
+            }
+
+
+            UpdateDelegate updateClientList = new UpdateDelegate(UpdateMessage);
+            this.systemLog.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, updateClientList,
+                "send (" + msgToSend.strMessage + ") client list for everyone in the chat room \n\r");
+
+        }
+
+
+        //Feltétel vizsgálata hogy mikor kezdheti el a szerver a kliensek listájának küldését
+        private void checkCondition(object o, ElapsedEventArgs e)
+        {
+
+            if (clientList.Count != 0)
+                sendClientList();
+        }
     }
 
     class ClientInfo
@@ -245,5 +302,3 @@ namespace Server
     }
 
 }
-
-

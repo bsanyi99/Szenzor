@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Server"
         mc:Ignorable="d"
-     Title="MainWindow" Height="450" Width="600" Loaded="Window_Loaded">
+     Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
         <Style x:Key="LogLabel" TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="black" />

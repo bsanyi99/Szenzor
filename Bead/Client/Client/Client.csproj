@@ -49,9 +49,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>smart.ico</ApplicationIcon>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -150,18 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Kepek\Oringe logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Kepek\account2.png" />
-    <Resource Include="Kepek\haz.jpg" />
-    <Resource Include="Kepek\kutya2.tif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Kepek\server.ico" />
-    <Resource Include="Kepek\smart.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="smart.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
