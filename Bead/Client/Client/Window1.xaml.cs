@@ -28,8 +28,6 @@ namespace Client
         public string userName;
         public string[] users;
         byte[] byteData = new byte[2048];
-        bool isNappal = false;
-        bool isEste = false;
 
         private delegate void UpdateMessageDelegate(string pMessage);
         private delegate void UpdateOnlineUsersDelegate(string pMessage);
@@ -59,92 +57,10 @@ namespace Client
 
             Data dataReceived = new Data(byteData);
 
-
-            if (dataReceived.cmdCommand == Command.Message)
-            {
-
-                string msg = dataReceived.strName + " Üzeni " + dataReceived.strMessage + "\n";
-
-            }
-            else if (dataReceived.cmdCommand == Command.List)
-            {
-                string msg = dataReceived.strMessage;
-
-            }
-
             clientSocket.BeginReceive(byteData, 0, byteData.Length, SocketFlags.None, new AsyncCallback(OnRecive), clientSocket);
 
 
-        }
-
-
-
-        private void Kitchen_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Bath_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Living_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void BadRoom_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Heat_Click(object sender, RoutedEventArgs e)
-        {
-            Thread t = new Thread(new ThreadStart(Heating));
-            t.Start();
-            Data dataToSend = new Data();
-            dataToSend.cmdCommand = Command.Heat;
-
-            byte[] data = dataToSend.toByte();
-            clientSocket.Send(data);
-
-        }
-
-        private void Heating()
-        {
-            int temp = 25;
-            for (int i = 0; i < 46; i++)
-            {
-                Console.WriteLine($"{i}.perc utan a viz homerseklete: {temp}°C");
-                Thread.Sleep(1000);
-                temp += 1;
-            }
-
-        }
-
-        private void Cool_Click(object sender, RoutedEventArgs e)
-        {
-            Data dataToSend = new Data();
-            dataToSend.cmdCommand = Command.Cool;
-
-            byte[] data = dataToSend.toByte();
-            clientSocket.Send(data);
-
-        }
-
-
-        private void Logout(object sender, RoutedEventArgs e)
-        {
-            Data msgToSend = new Data();
-            msgToSend.cmdCommand = Command.Logout;
-            msgToSend.strName = userName;
-
-            byte[] message = new byte[2200000];
-            message = msgToSend.toByte();
-            clientSocket.Send(message);
-            Close();
-        }
+        }  
 
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -169,9 +85,24 @@ namespace Client
             Thread t2 = new Thread(new ThreadStart(DateClock));
             t2.Start();
 
+            Thread t3 = new Thread(new ThreadStart(NumberAdd));
+            t3.Start();
+
 
         }
 
+        bool isParasito = false;
+        private bool isForralas = false;
+        double eredeti = 0;
+        private void Parasito_Click(object sender, RoutedEventArgs e)
+        {
+            sendMessagetoServer("Párásító berendezés bekapcsolva!");
+            double para = Convert.ToDouble(this.Paratartalom.Content.ToString());
+            if (para < 45)
+            {
+                isParasito = true;
+            }
+        }
 
 
         private void Work()
@@ -179,7 +110,8 @@ namespace Client
             int kinti = 1;
             int label_ertek = 0;
             int allando = 20;
-            bool isFutes = false;
+
+
 
             this.Dispatcher.Invoke((Action)(() =>
             {//this refer to form in WPF application 
@@ -190,9 +122,11 @@ namespace Client
 
 
             }));
+
+
             if (kinti != allando)
             {
-                if (kinti < allando)
+                if (kinti < allando && kinti + 3 < allando)
                 {
                     /**Fűtés**/
 
@@ -201,28 +135,53 @@ namespace Client
                     {
                         Updater uiUpdater = new Updater(UpdateUI);
                         Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater, i);
+                        //sendMessagetoServer("Hőmérséklet lecsökkent " + i.ToString() + "°C-ra/-re");
                         Thread.Sleep(300);
                         i--;
                     }
-
-                    this.Dispatcher.Invoke(delegate ()
+                    try
                     {
-                        label1.Background = Brushes.Red;
-                    });
 
+                        this.Dispatcher.Invoke(delegate ()
+                        {
+                            label1.Background = Brushes.Red;
+                        });
+
+
+                    }
+                    catch (System.Threading.Tasks.TaskCanceledException)
+                    {
+                        Console.WriteLine("");
+                    }
+
+                    sendMessagetoServer("Fűtés bekapcsolva!");
                     for (int j = i; j <= allando; j++)
                     {
 
                         Updater uiUpdater = new Updater(UpdateUI);
                         Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater, j);
                         Thread.Sleep(300);
+
                     }
-                    this.Dispatcher.Invoke(delegate ()
+                    sendMessagetoServer("Fűtés kikapcsolva!");
+
+                    try
                     {
-                        label1.Background = Brushes.Transparent;
-                    });
+                        this.Dispatcher.Invoke(delegate ()
+                        {
+                            label1.Background = Brushes.Transparent;
+                        });
+                    }
+                    catch (System.Threading.Tasks.TaskCanceledException)
+                    {
+                        Console.WriteLine("");
+                    }
+
+
+
+
                 }
-                else
+                if (kinti > allando && kinti + 3 > allando)
                 {
                     /**Hűtés**/
                     int i = label_ertek;    /// 20 fok
@@ -230,7 +189,7 @@ namespace Client
                     {
                         Updater uiUpdater = new Updater(UpdateUI);
                         Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater, i);
-                        Thread.Sleep(300);
+                        Thread.Sleep(300);                        
                         i++;
                     }
 
@@ -238,14 +197,15 @@ namespace Client
                     {
                         label1.Background = Brushes.Blue;
                     });
+                    sendMessagetoServer("Hűtés bekapcsolva!");
                     for (int j = i; j >= allando; j--)          /// 24 --> 20 -->  
                     {
-
                         Updater uiUpdater = new Updater(UpdateUI);
                         Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater, j);
                         Thread.Sleep(300);
 
                     }
+                    sendMessagetoServer("Hűtés kikapcsolva!");
                     this.Dispatcher.Invoke(delegate ()
                     {
                         label1.Background = Brushes.Transparent;
@@ -256,16 +216,13 @@ namespace Client
             }
         }
 
+
+
         private delegate void Updater(int UI);
 
         private void UpdateUI(int i)
         {
             label1.Content = i;
-        }
-
-        private void kint_ho_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
 
@@ -288,10 +245,9 @@ namespace Client
 
 
 
-
         private void DateClock()
         {
-            var path = @"C:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\2020data.csv";
+            var path = "2020data.csv";
             var lines = File.ReadAllLines(path);
             List<SunData> sunDatas = new List<SunData>();
             foreach (var line in lines)
@@ -308,13 +264,11 @@ namespace Client
             }
 
             int[] napok = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-            DateTime startDate = new DateTime(2020, 1, 1, 15, 0, 0);
-            this.Dispatcher.Invoke((Action)(() =>
-            {//this refer to form in WPF application 
-
-            }));
-
-            for (int i = 0; i < sunDatas.Count; i++)
+            DateTime startDate = new DateTime(2020, 1, 1, 0, 0, 0);
+            TimeSpan interval = new TimeSpan(0, 0, 1);
+            
+            int i = 0;
+            while (i < sunDatas.Count())
             {
                 for (int ho = 1; ho < 13; ho++)
                 {
@@ -331,13 +285,18 @@ namespace Client
                                 Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater3, startDate.Hour);
                                 Updater4 uiUpdater4 = new Updater4(MinUpdate);
                                 Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater4, startDate.Minute);
+                                this.Dispatcher.Invoke((Action)(() =>
+                                {
+                                    interval = TimeSpan.FromMilliseconds(Convert.ToInt32(this.sebesseg.Text)*50);
+                                }));
+                                Thread.Sleep(interval);
 
-                                Thread.Sleep(300);
                                 if (startDate == sunDatas[i].SunRise_Time1)
                                 {
                                     this.Dispatcher.Invoke((Action)(() =>
                                     {
                                         this.LampLights.Text = "Lights off";
+                                        sendMessagetoServer("Külső lámpák lekapcsolva!");
                                     }));
                                 }
                                 else
@@ -347,78 +306,100 @@ namespace Client
                                         this.Dispatcher.Invoke((Action)(() =>
                                         {
                                             this.LampLights.Text = "Lights on";
+                                            this.redonyAllapot.Content = "Lent";
+                                            sendMessagetoServer("Külső lámpák felkapcsolva!");
+                                            sendMessagetoServer("Redőny lehúzva!");
                                         }));
                                     }
                                 }
+                                if (startDate.Hour == 7 && startDate.Minute == 15)
+                                {
+                                    this.Dispatcher.Invoke((Action)(() =>
+                                    {
+                                        this.redonyAllapot.Content = "Fent";
+                                        this.ajtoAllapot.Content = "Nyitva";
+                                        sendMessagetoServer("Redőny felhúzva!");
+                                        sendMessagetoServer("Ajtók nyitva!");
+                                    }));
+                                }
+                                if (startDate.Hour == 23 && startDate.Minute == 30)
+                                {
+                                    this.Dispatcher.Invoke((Action)(() =>
+                                    {
+                                        this.ajtoAllapot.Content = "Zárva";
+                                        sendMessagetoServer("Ajtók zárva!");
+                                    }));
+                                }
+                                if (isParasito == true)
+                                {
+                                    this.Dispatcher.Invoke((Action)(() =>
+                                    {
+                                        double alap = Convert.ToDouble(this.Paratartalom.Content);
+                                        alap += 0.5;
+                                        if (alap == 45)
+                                        {
+                                            sendMessagetoServer("Párásító beavatkozó kikapcsolva!");
+                                            isParasito = false;
+                                        }
+
+                                        this.Paratartalom.Content = alap;
+                                    }));
+                                }
+                                if (isForralas == true)
+                                {
+                                    this.Dispatcher.Invoke((Action)(() =>
+                                    {
+                                        double alap = Convert.ToDouble(this.Paratartalom.Content);
+                                        if (eredeti + 6 < alap)
+                                        {
+                                            sendMessagetoServer("Vízforraló kikapcsolva!");
+                                            isForralas = false;
+                                        }
+                                        else
+                                        {
+                                            
+                                            alap += 2;
+                                            this.Paratartalom.Content = alap;
+                                        }
+                                    }));
+
+                                }
+
+                                this.Dispatcher.Invoke((Action)(() =>
+                                {
+                                    double para = Convert.ToDouble(this.Paratartalom.Content);
+                                    if (para > 45 && isForralas == false)
+                                    {
+                                        if (isWrite)
+                                        {
+                                            sendMessagetoServer("Szellőzők nyitva!");
+                                            isWrite = false;
+                                        }
+                                        this.szellozoAllapot.Content = "ON";
+                                        para -= 0.5;
+                                        this.Paratartalom.Content = para;
+                                        if (para == 45.5)
+                                        {                                            
+                                            sendMessagetoServer("Szellőzők bezárva!");
+                                        }
+                                        if (para == 45)
+                                        {
+                                            this.szellozoAllapot.Content = "OFF";
+                                            isWrite = true;
+                                        }
+                                    }
+                                }));
+
+
                             }
-                            //startDate.AddHours(Convert.ToDouble(ora));
+                            //startDate.AddHours(Convert.ToDouble(ora));                       
                         }
+                        i++;
                         //startDate.AddDays(Convert.ToDouble(nap));
                     }
                 }
             }
         }
-
-        private void Clock()
-        {
-            int alap_ora1 = 0;
-
-            this.Dispatcher.Invoke((Action)(() =>
-            {//this refer to form in WPF application 
-
-                string alapora = this.ora.Content.ToString();
-                alap_ora1 = int.Parse(alapora);
-
-
-            }));
-            int i = alap_ora1;
-            while (true)
-            {
-
-                Updater3 uiUpdater3 = new Updater3(ClockUpdate);
-                Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater3, i);
-                Thread.Sleep(2000);
-                i++;
-                if (i == 25)
-                {
-                    i = 0;
-                }
-
-                if (i >= 7 && i <= 17)
-                {
-                    isNappal = true;
-                    this.Dispatcher.Invoke((Action)(() =>
-                    {
-                        this.LampLights.Text = "Lights off";
-                    }));
-                }
-                else
-                {
-                    isNappal = false;
-                }
-
-                if (i >= 18 && i <= 23)
-                {
-                    isEste = true;
-                    this.Dispatcher.Invoke((Action)(() =>
-                    {
-                        this.LampLights.Text = "Lights on";
-                    }));
-
-                }
-                else
-                {
-                    this.Dispatcher.Invoke((Action)(() =>
-                    {
-                        this.LampLights.Text = "Lights off";
-                    }));
-                    isEste = false;
-
-                }
-            }
-        }
-
-
 
         private delegate void Updater3(int UI);
 
@@ -447,56 +428,126 @@ namespace Client
             datum.Text = s;
         }
 
+        private delegate void Updater6(string UI);
 
-        void TextBlock_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void HumidityUpdate(string s)
         {
+            Paratartalom.Content = s + "%";
+        }
 
 
-            if (isNappal == false && isEste == false)
+
+
+        private void Forralas_Click(object sender, RoutedEventArgs e)
+        {
+            sendMessagetoServer("Vízforraló bekapcsolva!");
+            isForralas = true;
+            eredeti = Convert.ToDouble(this.Paratartalom.Content);
+
+        }
+
+        private bool isOpen = false;
+        private void garazsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (isOpen)
             {
-                this.LampLights.Text = "Lights on";
-
-                Thread t = new Thread(new ThreadStart(LampaValtas));
-                t.Start();
+                garazsAllapot.Content = "Lent";
+                isOpen = false;
+                sendMessagetoServer("Garázs bezárva!");
+            }
+            else
+            {
+                garazsAllapot.Content = "Fent";
+                isOpen = true;
+                sendMessagetoServer("Garázs kinyitva!");
             }
 
-        }
 
-        void LampaValtas()
+        }
+        bool isDoor = false;
+        bool isWrite = true;
+
+        private void keyButton_Click(object sender, RoutedEventArgs e)
         {
-            Thread.Sleep(1000);
-            Updater2 uiUpdater = new Updater2(UpdateUI2);
-            Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater, "Lights off");
+            if (isDoor)
+            {
+                ajtoAllapot.Content = "Zárva";
+                isDoor = false;
 
+                sendMessagetoServer("Ajtók zárva!");
+            }
+            else
+            {
+                ajtoAllapot.Content = "Nyitva";
+                isDoor = true;
 
-
+                sendMessagetoServer("Ajtók nyitva!");
+            }
         }
-
-        delegate void Updater2(string UI);
-
-        void UpdateUI2(string i)
-        {
-            this.LampLights.Text = i;
-
-        }
-
-
-
-
-        /***********************************************ÓRA*********************************************/
-
-
-
-
-
-        void TextBlock_IsMouseDirectlyOverChanged2(object sender, DependencyPropertyChangedEventArgs e)
+        private void NumberAdd()
         {
 
+            List<int> lista = new List<int>();
+            lista.Add(19);
+            lista.Add(19);
+            lista.Add(20);
+            lista.Add(2);
+            lista.Add(30);
+            lista.Add(15);
+            lista.Add(-7);
 
-
-
+            for (int i = 0; i < lista.Count; i++)
+            {
+                Updater kintiHoUpdater = new Updater(KintiUpdater);
+                Thread.Sleep(3300);
+                Dispatcher.BeginInvoke(DispatcherPriority.Send, kintiHoUpdater, lista[i]);
+                Thread t = new Thread(new ThreadStart(Work));
+                t.Start();
+            }
         }
 
+
+        private void KintiUpdater(int i)
+        {
+            kint_ho.Text = i.ToString();
+        }
+
+
+        private void Logout(object sender, RoutedEventArgs e)
+        {
+            Data msgToSend = new Data();
+            msgToSend.cmdCommand = Command.Logout;
+            msgToSend.strName = userName;
+
+            byte[] message = new byte[2200000];
+            message = msgToSend.toByte();
+            clientSocket.Send(message);
+
+            Environment.Exit(0);
+            Close();
+        }
+
+        private void sendMessagetoServer(string uzenet)
+        {
+            try
+            {
+
+                Data msgToSend = new Data();
+                msgToSend.cmdCommand = Command.Message;
+                msgToSend.strName = userName;
+                msgToSend.strMessage = "<< " + uzenet;
+
+
+                byte[] message = new byte[2048];
+                message = msgToSend.toByte();
+                clientSocket.Send(message);
+
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("TCPclient");
+            }
+        }
 
     }
 }
