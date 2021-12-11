@@ -28,7 +28,6 @@ namespace Client
         public string userName;
         public string[] users;
         byte[] byteData = new byte[2048];
-        int speed = 100;
 
         private delegate void UpdateMessageDelegate(string pMessage);
         private delegate void UpdateOnlineUsersDelegate(string pMessage);
@@ -248,7 +247,7 @@ namespace Client
 
         private void DateClock()
         {
-            var path = @"C:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\2020data.csv";
+            var path = "2020data.csv";
             var lines = File.ReadAllLines(path);
             List<SunData> sunDatas = new List<SunData>();
             foreach (var line in lines)
@@ -266,10 +265,8 @@ namespace Client
 
             int[] napok = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
             DateTime startDate = new DateTime(2020, 1, 1, 0, 0, 0);
-            this.Dispatcher.Invoke((Action)(() =>
-            {
-
-            }));
+            TimeSpan interval = new TimeSpan(0, 0, 1);
+            
             int i = 0;
             while (i < sunDatas.Count())
             {
@@ -288,8 +285,11 @@ namespace Client
                                 Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater3, startDate.Hour);
                                 Updater4 uiUpdater4 = new Updater4(MinUpdate);
                                 Dispatcher.BeginInvoke(DispatcherPriority.Send, uiUpdater4, startDate.Minute);
-
-                                Thread.Sleep(speed);
+                                this.Dispatcher.Invoke((Action)(() =>
+                                {
+                                    interval = TimeSpan.FromMilliseconds(Convert.ToInt32(this.sebesseg.Text)*50);
+                                }));
+                                Thread.Sleep(interval);
 
                                 if (startDate == sunDatas[i].SunRise_Time1)
                                 {
@@ -370,6 +370,11 @@ namespace Client
                                     double para = Convert.ToDouble(this.Paratartalom.Content);
                                     if (para > 45 && isForralas == false)
                                     {
+                                        if (isWrite)
+                                        {
+                                            sendMessagetoServer("Szellőzők nyitva!");
+                                            isWrite = false;
+                                        }
                                         this.szellozoAllapot.Content = "ON";
                                         para -= 0.5;
                                         this.Paratartalom.Content = para;
@@ -380,6 +385,7 @@ namespace Client
                                         if (para == 45)
                                         {
                                             this.szellozoAllapot.Content = "OFF";
+                                            isWrite = true;
                                         }
                                     }
                                 }));
@@ -394,9 +400,6 @@ namespace Client
                 }
             }
         }
-
-
-
 
         private delegate void Updater3(int UI);
 
@@ -450,18 +453,20 @@ namespace Client
             {
                 garazsAllapot.Content = "Lent";
                 isOpen = false;
-                sendMessagetoServer("Garázs kinyitva!");
+                sendMessagetoServer("Garázs bezárva!");
             }
             else
             {
                 garazsAllapot.Content = "Fent";
                 isOpen = true;
-                sendMessagetoServer("Garázs bezárva!");
+                sendMessagetoServer("Garázs kinyitva!");
             }
 
 
         }
         bool isDoor = false;
+        bool isWrite = true;
+
         private void keyButton_Click(object sender, RoutedEventArgs e)
         {
             if (isDoor)

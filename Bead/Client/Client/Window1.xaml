@@ -68,7 +68,7 @@
 
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="9.2,10,10,9.8">
             <StackPanel.Background>
-                <ImageBrush ImageSource="c:\Users\Felhasználó\Documents\GitHub\Szenzor\Bead\Client\Client\Kepek\haz.jpg" x:Name="kitchen"/>
+                <ImageBrush ImageSource="Kepek\haz.jpg" x:Name="kitchen"/>
             </StackPanel.Background>
             <TextBlock Background="Transparent" Width="50" Height="70" Margin="10,120,-470,10"/>
         </StackPanel>
@@ -103,7 +103,7 @@
                 <Label Content="Ajtó:" Foreground="White" FontSize="25" Margin="10,45,0,10" HorizontalContentAlignment="Center" FontWeight="Bold"/>
                 <Label x:Name="ajtoAllapot" Content="Zárva"  Foreground="White" FontSize="25" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="-2,45,0,10" FontWeight="Bold"/>
                 <Button Background="Transparent" Width="50" BorderBrush="White" Height="53" Margin="70,0,15,0" Click="keyButton_Click" x:Name="keyButton">
-                    <Image Source="C:\Users\Felhasználó\Documents\Szenzor\Bead\Client\Client\Kepek\key.png" />
+                    <Image Source="Kepek\account2.png" />
                 </Button>
             </StackPanel>
         </StackPanel>
@@ -111,7 +111,7 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="4.2,20,0,-0.4" Grid.Column="1">
             <DockPanel VerticalAlignment="Center" Margin="30,80,10,5" Width="500 " Height="50">
                 <TextBox Text="{Binding Value, ElementName=sliderValue, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" x:Name="sebesseg"/>
-                <Slider Maximum="500" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="sliderValue"/>
+                <Slider Minimum="1" Maximum="10" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="sliderValue"/>
             </DockPanel>
         </StackPanel>
     </Grid>
